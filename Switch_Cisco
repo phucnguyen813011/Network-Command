@@ -6,3 +6,5 @@ show switch neighbors #hiển thị hàng xóm của stack
 show switch stack-ports #Hiển thị thông tin stack port. Tùy chọn "summary" sẽ hiển thị chiều dài cable, trạng thái stack link và loopback
 2-- Lệnh show trạng thái các port
 show ip int brief | inc down #Hiển thị thông tin các port down
+3-- Lệnh show description trên các port
+show int description | include PA-3410#1
