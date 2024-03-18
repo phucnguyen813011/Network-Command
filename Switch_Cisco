@@ -1,0 +1,8 @@
+1--Các lệnh dùng để theo dõi stack
+show switch #Hiển thị thông tin tóm tắt về stack switch, bao gồm switch number, poriority, role là active hay standby, trạng thái switch
+show switch stack-member-number #Hiển thị thông tin của 1 stack member chỉ định
+show switch detail #hiển thị thông tin chi tiết của stack
+show switch neighbors #hiển thị hàng xóm của stack
+show switch stack-ports #Hiển thị thông tin stack port. Tùy chọn "summary" sẽ hiển thị chiều dài cable, trạng thái stack link và loopback
+2-- Lệnh show trạng thái các port
+show ip int brief | inc down #Hiển thị thông tin các port down
