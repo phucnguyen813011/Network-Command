@@ -11,7 +11,17 @@ show ip int brief | inc up #Hiển thị thông tin các port up
 show ip int brief | inc connected #Hiển thị thông tin các port up
 3-- Lệnh show description trên các port
 show int description | include PA-3410#1
-4--Update and backup via TFTP
-copy tftp:10.0.100.31 running-config
+4--Update and backup running-config via TFTP
+copy tftp:10.0.x.x running-config
 copy running-config tftp:
+5--Tìm mac của PC trong mạng LAN
+VD: Test trên Switch Aruba 6100
+- Vô core switch và gõ : 
+show mac-address-table | include 00:68:eb:b4:ee:22
+KQ: 00:68:eb:b4:ee:22    2        dynamic                   1/1/44
+KQ : Xem chỗ description ( sẽ biết mac đó nằm trên thiết bị L2 nào )
+- Vô thiết bị L2 : show mac-address-table | include 00:68:eb:b4:ee:22
+00:68:eb:b4:ee:22    2        dynamic                   1/1/11
+- Show các port đang down
+show ip int brief | inc down
 
