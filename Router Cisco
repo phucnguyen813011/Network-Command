@@ -1,5 +1,4 @@
 show standby ( Check trang thai các duong truyen )
-show mpls ldp binding
 show mpls ldp binding local
 show mpls ldp neighbor
 show mpls forwarding-table
