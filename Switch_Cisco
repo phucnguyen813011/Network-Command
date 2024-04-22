@@ -26,4 +26,6 @@ KQ : Xem chỗ description ( sẽ biết mac đó nằm trên thiết bị L2 n�
 00:68:eb:b4:ee:22    2        dynamic                   1/1/11
 - Show các port đang down
 show ip int brief | inc down
-
+6-Xem thông tin etherchannel
+show etherchannel  summary
+show etherchannel 1 detail
