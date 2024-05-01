@@ -1,0 +1,74 @@
+Trouble Shoot IPSec VPN connectivity issues
+Phase 1:
+To rule out ISP-related issues, try pinging the peer IP from the PA external interface. Ensure that pings are enabled on the peer's external interface.
+If pings have been blocked per security requirements, see if the other peer is responding to the main/aggressive mode messages, or the DPDs. Check for the responses of the "Are you there?" messages from the peer in the system logs under the Monitor tab or under ikemgr logs.
+Check that the IKE identity is configured correctly.
+Check that the policy is in place to permit IKE and IPSec applications. Usually this policy is not required if there is no clean-up rule configured on the box. If a clean-up rule is configured, the policy is configured usually from the external zone to the external zone.
+Check that proposals are correct. If incorrect, logs about the mismatch can be found under the system logs, or by using the following CLI command:
+> less mp-log ikemgr.log
+Check that preshared key is correct. If incorrect, logs about the mismatch can be found under the system logs, or by using the following CLI command:
+> less mp-log ikemgr.log
+Take packet captures to analyze the traffic. Use filters to narrow the scope of the captured traffic.
+ 
+Useful CLI commands:
+> show vpn ike-sa gateway <name>
+> test vpn ike-sa gateway <name>
+> debug ike stat
+Advanced CLI commands:
+
+For detailed logging, turn on the logging level to debug:
+> debug ike global on debug
+> less mp-log ikemgr.log
+To view the main/aggressive and quick mode negotiations, it is possible to turn on pcaps for capturing these negotiations. Messages 5 and 6 onwards in the main mode and all the packets in the quick mode have their data payload encrypted:
+> debug ike pcap on
+> view-pcap no-dns-lookup yes no-port-lookup yes debug-pcap ikemgr.pcap
+Turn off debugs
+> debug ike pcap off 
+> debug ike global off
+Configuring packet filter and captures restricts pcaps only to the one worked on, debug IKE pcap on shows pcaps for all VPN traffic.
+To check if NAT-T is enabled, packets will be on port 4500 instead of 500 from the 5th and 6th messages of main mode.
+Check if vendor id of the peer is supported on the Palo Alto Networks device and vice-versa.
+Phase 2:
+
+Check if the firewalls are negotiating the tunnels, and ensure that 2 unidirectional SPIs exist:
+> show vpn ipsec-sa
+> show vpn ipsec-sa tunnel <tunnel.name>
+Check if proposals are correct. If incorrect, logs about the mismatch can be found under the system logs under the monitor tab, or by using the following command:
+> less mp-log ikemgr.log
+Check if pfs is enabled on both ends. If incorrect, logs about the mismatch can be found under the system logs under the monitor tab, or by using the command:
+> less mp-log ikemgr.log
+Check the proxy-id configuration. This is usually not required when the tunnel is between two Palo Alto Networks firewalls, but when the peer is from another vendor, IDs usually need to be configured. A mismatch would be indicated under the system logs, or by using the command:
+> less mp-log ikemgr.log
+Useful CLI commands:
+> show vpn flow name <tunnel.id/tunnel.name>
+> show vpn flow name <tunnel.id/tunnel.name> | match bytes
+Check if encapsulation and decapsulation bytes are increasing. If the firewall is passing traffic, then both values should be increasing.
+> show vpn flow name <tunnel.id/tunnel.name> | match bytes
+If encapsulation bytes are increasing and decapsulation is constant, then the firewall is sending  but not receiving packets.
+Check to see if a policy is dropping the traffic, or if a port translating device in front of PAN that might be dropping the ESP packets.
+> show vpn flow name <tunnel.id/tunnel.name> | match bytes
+If decapsulation bytes are increasing and encapsulation is constant, then the firewall is receiving but not transmitting packets.
+Check to see if a policy is dropping the traffic:
+> test routing fib-lookup virtual-router default ip <destination IP>
+--------------------------------------------------
+runtime route lookup
+--------------------------------------------------
+virtual-router:  default
+destination:     10.5.1.1
+result:          interface tunnel.1
+
+> show routing route
+> test vpn ipsec-sa tunnel <name>
+
+ Advanced CLI Commands:
+> debug ike global on debug
+> less mp-log ikemgr.log
+> debug ike pcap on
+> view-pcap no-dns-lookup yes no-port-lookup yes debug-pcap ikemgr.pcap
+> debug ike pcap off
+> debug ike global off
+If tunnels are up but traffic is not passing through the tunnel:
+
+Check security policy and routing.
+Check for any devices upstream that perform port-and-address-translations. Because ESP is a layer 3 protocol, ESP packets do not have port numbers. When such devices receive ESP packets, there is a high possibility they may silently drop them, because they do not see the port numbers to translate.
+Apply debug packet filters, captures or logs, if necessary, to isolate the issue where the traffic is getting dropped.
