@@ -24,6 +24,8 @@ KQ: 00:68:eb:b4:ee:22    2        dynamic                   1/1/44
 KQ : Xem chỗ description ( sẽ biết mac đó nằm trên thiết bị L2 nào )
 - Vô thiết bị L2 : show mac-address-table | include 00:68:eb:b4:ee:22
 00:68:eb:b4:ee:22    2        dynamic                   1/1/11
+VD: Test trên sw Cisco 3750G
+show mac address-table | include d0ad.08a2.bc8a
 - Show các port đang down
 show ip int brief | inc down
 6-Xem thông tin etherchannel
