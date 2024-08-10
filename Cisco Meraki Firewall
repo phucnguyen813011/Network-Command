@@ -1,0 +1,8 @@
+1/Reset Default Factory
+- Nhấn nút reset trong vòng 10-15s rồi nhả ra
+- Vô trang https://documentation.meraki.com/General_Administration/Support/Resetting_Cisco_Meraki_Devices_to_Factory_Defaults
+1. Using a client machine such as a laptop, connect to one of the LAN ports of the MX. 
+2. Using a browser on the client machine, access the appliance's built-in web service by browsing to http://setup.meraki.com. (You do not have to be connected to the Internet to reach this address) 
+3. Click Uplink configuration under the Local status tab. The default credentials use the device serial number as the username, with a blank password field. 
+4. Choose Static for the IP Assignment option. 
+5. Enter the IP address, subnet mask, default gateway IP and DNS server information.
