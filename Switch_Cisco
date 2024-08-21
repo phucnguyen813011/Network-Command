@@ -33,3 +33,6 @@ show etherchannel  summary
 show etherchannel 1 detail
 7-Tao chuoi rsa tren switch cisco L2
 SWTemp(config)#crypto key generate rsa general-keys modulus 1024
+8-Show Thông tin ram trên SW Cisco C9300
+sh platform resources
+sh platform software status control-processor brief
