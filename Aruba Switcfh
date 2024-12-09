@@ -4,4 +4,5 @@ show mac-address-table | include a4:4c:c8:59:40:8f
 2 - Show trạng thái Port Vật Lý
 show interface physical
 3 - Chỉ định tốc độ port
-show interface physical
+speed auto
+
