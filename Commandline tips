@@ -1,0 +1,2 @@
+1/Lệnh ping và xuất ra file txt trên PC
+ping 10.140.2.22 -t > D:\Logs\filename.txt
