@@ -1,4 +1,6 @@
 1/Lệnh ping và xuất ra file txt trên PC
 ping 10.140.2.22 -t > D:\Logs\filename.txt
-2/Lệnh add route trên PC
+2/a/Lệnh add route trên PC
 route add 172.18.3.0 mask 255.255.255.0 172.18.5.254 metric 1 –p
+2/b/Lệnh xóa route trên PC
+route delete 172.18.3.0 mask 255.255.255.0 172.18.5.254
