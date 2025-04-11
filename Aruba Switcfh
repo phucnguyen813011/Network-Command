@@ -5,4 +5,17 @@ show mac-address-table | include a4:4c:c8:59:40:8f
 show interface physical
 3 - Chỉ định tốc độ port
 speed auto
+4 - Backup Config via tftp server 
+a/ Bật tool tftpd64 by Ph.Jounin
+b/ Mở rule từ tftp server toi switch  " tftp  10.140.2.22 toi switch  10.140.100.2 " - Any
+   Mở rule từ switch tới tftp server  " switch 10.140.100.2  toi 10.140.2.22 UDP - 69 "
+*** Áp dụng cho Firewall Cisco Meraki MX75 và Switch Aruba ***
+c/ command cách 1 : copy running-config tftp://10.140.2.22/SW_KAFI_T15_03 cli " file cli "
+   command cách 2 : copy running-config tftp://10.140.2.22/SW_KAFI_T15_03 json " file json "
+*** Áp dụng cho Firewall Cisco Meraki MX75 và Switch Cisco CBS250/CBS350 ***
+copy running-config tftp://10.140.2.22/SW_KAFI_T15_01
+
+
+
+
 
